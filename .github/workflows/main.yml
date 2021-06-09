@@ -19,7 +19,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Open Web Client Directory
-        working-directory: ./dev-interview-server
         run: |
            ls -la
       - name: Install server dependencies
