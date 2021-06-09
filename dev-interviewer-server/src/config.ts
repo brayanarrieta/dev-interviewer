@@ -6,7 +6,10 @@ export const SERVER_PORT = process.env.SERVER_PORT || 8000;
 
 export const NODE_ENVIRONMENT = process.env.NODE_ENV;
 
-// eslint-disable-next-line no-console
-console.log({
-  SERVER_PORT, NODE_ENVIRONMENT,
-});
+export const HARPER_HOST = process.env.HARPER_INSTANCE_URL;
+
+export const HARPER_USERNAME = process.env.HARPER_INSTANCE_USERNAME;
+
+export const HARPER_PASSWORD = process.env.HARPER_INSTANCE_PASSWORD;
+
+export const HARPER_SCHEMA = process.env.HARPER_INSTANCE_SCHEMA;

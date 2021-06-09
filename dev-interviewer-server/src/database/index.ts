@@ -1,0 +1,1 @@
+export { executeRawQuery } from './factory';
