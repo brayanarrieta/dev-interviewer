@@ -1,13 +1,13 @@
 import express from 'express';
+import { SERVER_PORT } from './config';
+
+import router from './routes';
 
 const app = express();
-const PORT = 8000;
 
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
+app.use('/api', router);
 
-app.listen(PORT, () => {
+app.listen(SERVER_PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+  console.log(`⚡️[server]: Server is running at http://localhost:${SERVER_PORT}`);
 });
