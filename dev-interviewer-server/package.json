@@ -9,7 +9,8 @@
     "lint": "eslint './src/**/*.ts'",
     "lint:fix": "eslint './src/**/*.ts' --fix",
     "lint:quiet": "eslint './src/**/*.ts' --quiet",
-    "start": "nodemon src/app.ts"
+    "start": "nodemon src/app.ts",
+    "postinstall": "patch-package"
   },
   "keywords": [
     "server"
@@ -27,6 +28,7 @@
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.23.4",
     "nodemon": "^2.0.7",
+    "patch-package": "^6.4.7",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   },

@@ -1,0 +1,24 @@
+diff --git a/node_modules/harperive/types/index.d.ts b/node_modules/harperive/types/index.d.ts
+index 9dbb77a..02b6ba0 100644
+--- a/node_modules/harperive/types/index.d.ts
++++ b/node_modules/harperive/types/index.d.ts
+@@ -102,8 +102,8 @@ export class Client {
+   readLogs(logsOptions: logsOptions): Promise<any>;
+   readLogs(logsOptions: logsOptions, cb: (error: any, response: responseData) => any): void;
+ 
+-  readTransactionLog(options: tansactionLogsOptions): Promise<any>;
+-  readTransactionLog(options: tansactionLogsOptions, cb: (error: any, response: responseData) => any): void;
++  readTransactionLog(options: any): Promise<any>;
++  readTransactionLog(options: any, cb: (error: any, response: responseData) => any): void;
+ 
+   readTransactionLogByTimestamp(options: tansactionLogsByKeysOptions): Promise<any>;
+   readTransactionLogByTimestamp(options: tansactionLogsByKeysOptions, cb: (error: any, response: responseData) => any): void;
+@@ -263,7 +263,7 @@ export interface tansactionLogsByKeysOptions extends transactionLogsOptions {
+ }
+ 
+ export interface deleteTransactionLogsBeforeOptions extends transactionLogsOptions {
+-  timestamp: millisecondTime;
++  timestamp: any;
+ }
+ 
+ export interface createTokenOptions {
