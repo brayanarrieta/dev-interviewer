@@ -4,10 +4,10 @@ type DatabaseStructure = {[key: string]: { hashAttribute: string }}
 
 const DATABASE_STRUCTURE: DatabaseStructure = {
   [TAGS_TABLE_NAME]: {
-    hashAttribute: 'tagId',
+    hashAttribute: 'id',
   },
   [QUESTIONS_TABLE_NAME]: {
-    hashAttribute: 'questionId',
+    hashAttribute: 'id',
   },
 };
 

@@ -1,10 +1,7 @@
 import { HARPER_SCHEMA } from '../config';
 import { ServiceError } from '../helpers/errors';
+import { FactoryOptions } from '../types';
 import harperiveClient from './harperive';
-
-type Options = {
-    schema?: string
-}
 
 const NO_SCHEMA_TOKEN = 'NO_SCHEMA_PROVIDED';
 
@@ -16,7 +13,7 @@ const validateSchema = (schema: string | undefined) => {
   }
 };
 
-const prepareRawQuery = (query: string, options?: Options): string => {
+const prepareRawQuery = (query: string, options?: FactoryOptions): string => {
   const schema = options?.schema || HARPER_SCHEMA;
 
   if (!schema) {
@@ -31,13 +28,13 @@ const prepareRawQuery = (query: string, options?: Options): string => {
   return prepared;
 };
 
-export const executeRawQuery = async (query: string, options?: Options) => {
+export const executeRawQuery = async (query: string, options?: FactoryOptions) => {
   const rawQuery = prepareRawQuery(query, options);
   const result = await harperiveClient.query(rawQuery);
   return result;
 };
 
-export const insertRecord = async (tableName: string, record: Object, options?: Options) => {
+export const insertRecord = async (tableName: string, record: Object, options?: FactoryOptions) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
   validateSchema(schema);
@@ -53,7 +50,7 @@ export const insertRecord = async (tableName: string, record: Object, options?: 
   return inserted;
 };
 
-export const updateRecord = async (tableName: string, record: Object, options?: Options) => {
+export const updateRecord = async (tableName: string, record: Object, options?: FactoryOptions) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
   validateSchema(schema);
@@ -69,7 +66,11 @@ export const updateRecord = async (tableName: string, record: Object, options?: 
   return updated;
 };
 
-export const deleteRecord = async (tableName: string, recordId: string, options?: Options) => {
+export const deleteRecord = async (
+  tableName: string,
+  recordId: string,
+  options?: FactoryOptions,
+) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
   validateSchema(schema);
@@ -86,7 +87,7 @@ export const deleteRecord = async (tableName: string, recordId: string, options?
 export const createTable = async (
   tableName: string,
   primaryKey: string,
-  options?: Options,
+  options?: FactoryOptions,
 ) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
@@ -101,7 +102,7 @@ export const createTable = async (
 
 export const dropTable = async (
   tableName: string,
-  options?: Options,
+  options?: FactoryOptions,
 ) => {
   const schema = options?.schema || HARPER_SCHEMA;
 

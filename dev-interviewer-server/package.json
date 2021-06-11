@@ -12,7 +12,8 @@
     "start": "nodemon src/app.ts",
     "postinstall": "patch-package",
     "migrate": "ts-node './src/database/migrate.ts'",
-    "migrate:drop": "ts-node './src/database/migrate.ts' --drop" 
+    "migrate:drop": "ts-node './src/database/migrate.ts' --drop",
+    "seeds": "ts-node './src/database/seeds.ts'"
   },
   "keywords": [
     "server"
