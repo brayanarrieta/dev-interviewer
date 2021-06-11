@@ -6,12 +6,22 @@ type Options = {
     schema?: string
 }
 
+const NO_SCHEMA_TOKEN = 'NO_SCHEMA_PROVIDED';
+
+const validateSchema = (schema: string | undefined) => {
+  if (!schema) {
+    throw new ServiceError({
+      token: NO_SCHEMA_TOKEN,
+    });
+  }
+};
+
 const prepareRawQuery = (query: string, options?: Options): string => {
   const schema = options?.schema || HARPER_SCHEMA;
 
   if (!schema) {
     throw new ServiceError({
-      token: 'NO_SCHEMA_PROVIDED',
+      token: NO_SCHEMA_TOKEN,
     });
   }
 
@@ -30,11 +40,7 @@ export const executeRawQuery = async (query: string, options?: Options) => {
 export const insertRecord = async (tableName: string, record: Object, options?: Options) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
-  if (!schema) {
-    throw new ServiceError({
-      token: 'NO_SCHEMA_PROVIDED',
-    });
-  }
+  validateSchema(schema);
 
   const inserted = await harperiveClient.insert({
     table: tableName,
@@ -50,11 +56,7 @@ export const insertRecord = async (tableName: string, record: Object, options?: 
 export const updateRecord = async (tableName: string, record: Object, options?: Options) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
-  if (!schema) {
-    throw new ServiceError({
-      token: 'NO_SCHEMA_PROVIDED',
-    });
-  }
+  validateSchema(schema);
 
   const updated = await harperiveClient.update({
     table: tableName,
@@ -70,11 +72,7 @@ export const updateRecord = async (tableName: string, record: Object, options?: 
 export const deleteRecord = async (tableName: string, recordId: string, options?: Options) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
-  if (!schema) {
-    throw new ServiceError({
-      token: 'NO_SCHEMA_PROVIDED',
-    });
-  }
+  validateSchema(schema);
 
   const deleted = await harperiveClient.delete({
     schema,
@@ -83,4 +81,66 @@ export const deleteRecord = async (tableName: string, recordId: string, options?
   });
 
   return deleted;
+};
+
+export const createTable = async (
+  tableName: string,
+  primaryKey: string,
+  options?: Options,
+) => {
+  const schema = options?.schema || HARPER_SCHEMA;
+
+  validateSchema(schema);
+
+  return harperiveClient.createTable({
+    schema,
+    table: tableName,
+    hashAttribute: primaryKey,
+  });
+};
+
+export const dropTable = async (
+  tableName: string,
+  options?: Options,
+) => {
+  const schema = options?.schema || HARPER_SCHEMA;
+
+  validateSchema(schema);
+
+  return harperiveClient.dropTable({
+    schema,
+    table: tableName,
+  });
+};
+
+export const createSchema = async (
+  schema?: string,
+) => {
+  const schemaToCreate = schema || HARPER_SCHEMA;
+
+  if (!schemaToCreate) {
+    throw new ServiceError({
+      token: NO_SCHEMA_TOKEN,
+    });
+  }
+
+  return harperiveClient.createSchema({
+    schema: schemaToCreate,
+  });
+};
+
+export const dropSchema = async (
+  schema?: string,
+) => {
+  const schemaToCreate = schema || HARPER_SCHEMA;
+
+  if (!schemaToCreate) {
+    throw new ServiceError({
+      token: NO_SCHEMA_TOKEN,
+    });
+  }
+
+  return harperiveClient.dropSchema({
+    schema: schemaToCreate,
+  });
 };

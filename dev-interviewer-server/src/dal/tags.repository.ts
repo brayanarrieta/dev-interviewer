@@ -1,9 +1,8 @@
 import { executeRawQuery } from '../database';
-
-const TABLE_NAME = 'tags';
+import { TAGS_TABLE_NAME } from '../constants/tableNames';
 
 export const getAllTagsDal = async () => {
-  const query = `SELECT * FROM schema.${TABLE_NAME}`;
+  const query = `SELECT * FROM schema.${TAGS_TABLE_NAME}`;
   const tags = await executeRawQuery(query);
 
   return tags;

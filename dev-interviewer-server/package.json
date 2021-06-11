@@ -10,7 +10,9 @@
     "lint:fix": "eslint './src/**/*.ts' --fix",
     "lint:quiet": "eslint './src/**/*.ts' --quiet",
     "start": "nodemon src/app.ts",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "migrate": "ts-node './src/database/migrate.ts'",
+    "migrate:drop": "ts-node './src/database/migrate.ts' --drop" 
   },
   "keywords": [
     "server"
@@ -18,10 +20,12 @@
   "author": "Brayan Arrieta",
   "license": "MIT",
   "devDependencies": {
+    "@types/command-line-args": "^5.0.0",
     "@types/express": "^4.17.12",
     "@types/node": "^15.12.2",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
+    "command-line-args": "^5.1.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.28.0",
     "eslint-config-airbnb-base": "^14.2.1",
