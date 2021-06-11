@@ -34,6 +34,20 @@ export const executeRawQuery = async (query: string, options?: FactoryOptions) =
   return result;
 };
 
+export const getAllRecords = async (tableName: string, options?: FactoryOptions) => {
+  const query = `SELECT * FROM schema.${tableName}`;
+  const result = await executeRawQuery(query, options);
+
+  return result?.data;
+};
+
+/**
+ * insertRecord
+ * @param tableName
+ * @param record
+ * @param options
+ * @returns insertedId
+ */
 export const insertRecord = async (tableName: string, record: Object, options?: FactoryOptions) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
@@ -47,9 +61,16 @@ export const insertRecord = async (tableName: string, record: Object, options?: 
     schema,
   });
 
-  return inserted;
+  return inserted?.data?.inserted_hashes?.[0];
 };
 
+/**
+ * updateRecord
+ * @param tableName
+ * @param record
+ * @param options
+ * @returns updatedId
+ */
 export const updateRecord = async (tableName: string, record: Object, options?: FactoryOptions) => {
   const schema = options?.schema || HARPER_SCHEMA;
 
@@ -63,7 +84,7 @@ export const updateRecord = async (tableName: string, record: Object, options?: 
     schema,
   });
 
-  return updated;
+  return updated?.data?.update_hashes?.[0];
 };
 
 export const deleteRecord = async (

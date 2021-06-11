@@ -26,12 +26,12 @@ const insertSeeds = async () => {
     await Promise.all(seeds.map(async (tag) => {
       const { questions, ...rest } = tag;
 
-      const tagInserted = await insertTag(rest);
+      const tagInsertedId = await insertTag(rest);
 
       if (questions?.length) {
         await Promise.all(questions.map(
           async (question) => insertQuestion({
-            tagId: tagInserted.data?.inserted_hashes?.[0],
+            tagId: tagInsertedId,
             ...question,
           }),
         ));
