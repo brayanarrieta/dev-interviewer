@@ -14,14 +14,6 @@ jobs:
         working-directory: ./dev-interviewer-server
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install server dependencies
-        run: npm ci
-      - name: Build server
-        run: npm run build --if-present
       - uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
