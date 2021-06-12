@@ -24,7 +24,8 @@
         "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" } ],
         "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"]
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "jsx-a11y/anchor-is-valid": "off"
     },
     "settings": {
         "import/resolver": {
