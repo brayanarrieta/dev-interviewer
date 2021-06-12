@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -20,5 +21,15 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" } ],
+        "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"]
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
     }
+    
 }
