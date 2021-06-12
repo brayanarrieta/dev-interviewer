@@ -17,7 +17,7 @@ jobs:
       - uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-args: '--prod'
+          vercel-args: '--prod --confirm'
           vercel-org-id: ${{ secrets.SERVER_ORG_ID}}  #Required
           vercel-project-id: ${{ secrets.SERVER_PROJECT_ID}} #Required 
           working-directory: ./
