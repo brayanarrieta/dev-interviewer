@@ -166,3 +166,33 @@ export const dropSchema = async (
     schema: schemaToCreate,
   });
 };
+
+interface SearchByValueOptions extends FactoryOptions {
+  attributes?: string[]
+}
+
+export const searchByValue = async (
+  tableName: string,
+  criteria: {searchAttribute: string, searchValue: any},
+  options?: SearchByValueOptions,
+) => {
+  const schema = options?.schema || HARPER_SCHEMA;
+
+  validateSchema(schema);
+
+  const { searchAttribute, searchValue } = criteria;
+
+  const attributes = options?.attributes?.length ? options.attributes : ['*'];
+
+  // TODO: Check if we need to add validation to searchAttribute and searchValue
+
+  const result = await harperiveClient.searchByValue({
+    table: tableName,
+    schema,
+    searchAttribute,
+    searchValue,
+    attributes,
+  });
+
+  return result?.data;
+};
