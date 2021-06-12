@@ -46,7 +46,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./dev-interviewer-client/node_modules/cz-conventional-changelog"
     }
   }
 }
