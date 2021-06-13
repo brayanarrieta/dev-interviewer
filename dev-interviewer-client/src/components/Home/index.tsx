@@ -1,14 +1,17 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 import PageDescriptor from './PageDescriptor';
 import Frame from '../layout/Frame';
+import TagSelector from '../../custom-components/TagSelector';
 
 const Home = () => (
   <>
     <PageDescriptor />
     <Frame>
-      Frame
+      <Grid item xs={12}>
+        <TagSelector />
+      </Grid>
     </Frame>
-
   </>
 );
 

@@ -14,7 +14,7 @@ const PageDescriptor = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="sm" component="main" className={classes.heroContent}>
+    <Container maxWidth="sm" component="div" className={classes.heroContent}>
       <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
         Dev Interviewer
       </Typography>

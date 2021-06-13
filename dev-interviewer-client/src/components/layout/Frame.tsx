@@ -9,7 +9,7 @@ const Frame = (props: FrameProps) => {
   const { children } = props;
 
   return (
-    <Container maxWidth="md" component="main">
+    <Container maxWidth="md" component="div">
       <Grid container spacing={5} alignItems="flex-end">
         {children}
       </Grid>

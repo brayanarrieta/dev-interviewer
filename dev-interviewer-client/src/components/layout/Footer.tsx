@@ -3,7 +3,7 @@ import {
   Container, Box,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Copyright from '../Copyright';
+import Copyright from '../../custom-components/Copyright';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
