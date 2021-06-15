@@ -4,10 +4,10 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { connect, RootStateOrAny } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
-import LoaderBar from '../../components/LoaderBar';
-import TagList from './TagList';
-import { ClientError, Tag } from '../../types';
-import { loadTags, setSelectedTag } from '../../redux/actions';
+import LoaderBar from '../components/LoaderBar';
+import TagSelector from '../custom-components/TagSelector';
+import { ClientError, Tag } from '../types';
+import { loadTags, setSelectedTag } from '../redux/actions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-interface TagSelectorProps {
+interface TagSelectorContainerProps {
   loadTags: ()=> {};
   setSelectedTag: any;
   isLoadingTags: boolean;
@@ -29,7 +29,7 @@ interface TagSelectorProps {
   selectedTagSlug: string;
 }
 
-const TagSelector = (props: TagSelectorProps) => {
+const TagSelectorContainer = (props: TagSelectorContainerProps) => {
   const {
     isLoadingTags, tags, error, selectedTagSlug,
   } = props;
@@ -37,6 +37,7 @@ const TagSelector = (props: TagSelectorProps) => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (tags.length) return;
     props.loadTags();
   }, []);
 
@@ -50,7 +51,7 @@ const TagSelector = (props: TagSelectorProps) => {
     }
 
     return (
-      <TagList
+      <TagSelector
         tags={tags}
         selectedTagSlug={selectedTagSlug}
         onSelectedTag={props.setSelectedTag}
@@ -76,4 +77,4 @@ export default connect(
     loadTags,
     setSelectedTag,
   },
-)(TagSelector);
+)(TagSelectorContainer);

@@ -1,14 +1,15 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
-import { Tag } from '../../types';
+import { Link } from 'react-router-dom';
+import { Tag } from '../types';
 
-interface TagListProps {
+interface TagSelectorProps {
     tags: Tag[];
     selectedTagSlug: string;
     onSelectedTag: any;
 }
 
-const TagList = (props: TagListProps) => {
+const TagSelector = (props: TagSelectorProps) => {
   const { tags, selectedTagSlug, onSelectedTag } = props;
 
   const handleSelectTag = (tagId: string) => onSelectedTag(tagId);
@@ -17,12 +18,12 @@ const TagList = (props: TagListProps) => {
     <Chip
       key={tag.id}
       label={tag.name}
-      component="a"
-      href={`/tag/${tag.slug}`}
+      to={`/tag/${tag.slug}`}
       clickable
       color="primary"
       onClick={() => handleSelectTag(tag.slug)}
       variant={selectedTagSlug === tag.slug ? 'default' : 'outlined'}
+      component={Link}
     />
   );
 
@@ -33,4 +34,4 @@ const TagList = (props: TagListProps) => {
   );
 };
 
-export default TagList;
+export default TagSelector;
