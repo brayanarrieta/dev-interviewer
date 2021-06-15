@@ -27,11 +27,12 @@ interface TagSelectorContainerProps {
   tags: Tag[];
   error: ClientError;
   selectedTagSlug: string;
+  isLoadingQuestions: boolean;
 }
 
 const TagSelectorContainer = (props: TagSelectorContainerProps) => {
   const {
-    isLoadingTags, tags, error, selectedTagSlug,
+    isLoadingTags, tags, error, selectedTagSlug, isLoadingQuestions,
   } = props;
   const classes = useStyles();
   const { t } = useTranslation();
@@ -55,6 +56,7 @@ const TagSelectorContainer = (props: TagSelectorContainerProps) => {
         tags={tags}
         selectedTagSlug={selectedTagSlug}
         onSelectedTag={props.setSelectedTag}
+        disableSelector={isLoadingQuestions}
       />
     );
   };
@@ -72,6 +74,7 @@ export default connect(
     isLoadingTags: state.tagsStore.isLoadingTags,
     error: state.tagsStore.error,
     selectedTagSlug: state.tagsStore.selectedTagSlug,
+    isLoadingQuestions: state.questionsStore.isLoadingQuestions,
   }),
   {
     loadTags,

@@ -7,10 +7,13 @@ interface TagSelectorProps {
     tags: Tag[];
     selectedTagSlug: string;
     onSelectedTag: any;
+    disableSelector: boolean;
 }
 
 const TagSelector = (props: TagSelectorProps) => {
-  const { tags, selectedTagSlug, onSelectedTag } = props;
+  const {
+    tags, selectedTagSlug, onSelectedTag, disableSelector,
+  } = props;
 
   const handleSelectTag = (tagId: string) => onSelectedTag(tagId);
 
@@ -24,6 +27,7 @@ const TagSelector = (props: TagSelectorProps) => {
       onClick={() => handleSelectTag(tag.slug)}
       variant={selectedTagSlug === tag.slug ? 'default' : 'outlined'}
       component={Link}
+      disabled={disableSelector}
     />
   );
 
