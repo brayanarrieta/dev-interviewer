@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import PageDescriptor from './PageDescriptor';
-import Frame from '../layout/Frame';
-import TagSelector from '../../custom-components/TagSelector';
+import Frame from './layout/Frame';
+import TagSelector from '../custom-components/TagSelector';
 
-const Home = () => (
+const PageHead = () => (
   <>
     <PageDescriptor />
     <Frame>
@@ -15,4 +15,4 @@ const Home = () => (
   </>
 );
 
-export default Home;
+export default PageHead;
