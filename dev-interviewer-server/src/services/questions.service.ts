@@ -1,3 +1,3 @@
-import { getAllQuestionsByTagIdDal } from '../dal/questions.repository';
+import { getAllQuestionsByTagSlugDal } from '../dal/questions.repository';
 
-export const getAllQuestionsByTagId = async (tagId: string) => getAllQuestionsByTagIdDal(tagId);
+export const getAllQuestionsByTagSlug = async (slug: string) => getAllQuestionsByTagSlugDal(slug);
