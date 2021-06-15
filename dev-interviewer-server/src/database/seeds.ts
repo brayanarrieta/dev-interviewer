@@ -10,6 +10,7 @@ const seeds: Seed[] = [
   {
     name: 'React.js',
     description: 'A library',
+    slug: 'react',
     questions: [
       {
         question: 'What is React?',
