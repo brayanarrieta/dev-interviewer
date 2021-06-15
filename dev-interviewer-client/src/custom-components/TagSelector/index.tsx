@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import { useAxios } from '../../custom-hooks/useAxios';
-import { HTTP_METHODS } from '../../constants/enums';
-import { GET_TAGS_URL } from '../../api/urls';
+import { connect, RootStateOrAny } from 'react-redux';
+
+import { useTranslation } from 'react-i18next';
 import LoaderBar from '../../components/LoaderBar';
 import TagList from './TagList';
+import { ClientError, Tag } from '../../types';
+import { loadTags } from '../../redux/actions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -18,25 +20,37 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const TagSelector = () => {
+interface TagSelectorProps {
+  loadTags: ()=> {};
+  isLoadingTags: boolean;
+  tags: Tag[];
+  error: ClientError;
+}
+
+const TagSelector = (props: TagSelectorProps) => {
+  const {
+    isLoadingTags, tags, error,
+  } = props;
   const classes = useStyles();
-
-  // eslint-disable-next-line no-unused-vars
-  const { response: tags, error, isLoading } = useAxios({
-    method: HTTP_METHODS.GET,
-    url: GET_TAGS_URL,
-  });
-
   const [selectedTagId, setSelectedTagId] = useState('');
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    props.loadTags();
+  }, []);
 
   const render = () => {
-    if (isLoading) {
+    if (isLoadingTags) {
       return <LoaderBar />;
+    }
+
+    if (error) {
+      return t(error.token);
     }
 
     return (
       <TagList
-        tags={tags || []}
+        tags={tags}
         selectedTagId={selectedTagId}
         onSelectedTag={setSelectedTagId}
       />
@@ -50,4 +64,13 @@ const TagSelector = () => {
   );
 };
 
-export default TagSelector;
+export default connect(
+  (state: RootStateOrAny) => ({
+    tags: state.tagsStore.tags,
+    isLoadingTags: state.tagsStore.isLoadingTags,
+    error: state.tagsStore.error,
+  }),
+  {
+    loadTags,
+  },
+)(TagSelector);

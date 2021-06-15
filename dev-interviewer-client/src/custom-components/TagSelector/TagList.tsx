@@ -18,7 +18,7 @@ const TagList = (props: TagListProps) => {
       key={tag.id}
       label={tag.name}
       component="a"
-      href={`/${tag.slug}`}
+      // href={`/${tag.slug}`}
       clickable
       color="primary"
       onClick={() => handleSelectTag(tag.id)}

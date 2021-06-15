@@ -13,3 +13,8 @@ export interface Question {
     votesUp: number;
     votesDown: number;
 }
+
+export interface ClientError {
+    message: string;
+    token: string;
+}
