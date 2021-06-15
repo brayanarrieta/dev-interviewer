@@ -1,7 +1,10 @@
-import { LOAD_TAGS, LOAD_TAGS_FAIL, LOAD_TAGS_SUCCESS } from '../actions/tagsActions';
+import {
+  LOAD_TAGS, LOAD_TAGS_FAIL, LOAD_TAGS_SUCCESS, SET_SELECTED_TAG,
+} from '../actions/tagsActions';
 
 const INITIAL_STATE = {
   tags: [],
+  selectedTagSlug: null,
 };
 
 const tagsStore = (state = INITIAL_STATE, action: any) => {
@@ -24,6 +27,11 @@ const tagsStore = (state = INITIAL_STATE, action: any) => {
         isLoadingTags: false,
         error: action.error,
         tags: [],
+      };
+    case SET_SELECTED_TAG:
+      return {
+        ...state,
+        selectedTagSlug: action.tagSlug,
       };
     default:
       return state;

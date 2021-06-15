@@ -4,12 +4,12 @@ import { Tag } from '../../types';
 
 interface TagListProps {
     tags: Tag[];
-    selectedTagId: string;
+    selectedTagSlug: string;
     onSelectedTag: any;
 }
 
 const TagList = (props: TagListProps) => {
-  const { tags, selectedTagId, onSelectedTag } = props;
+  const { tags, selectedTagSlug, onSelectedTag } = props;
 
   const handleSelectTag = (tagId: string) => onSelectedTag(tagId);
 
@@ -18,11 +18,11 @@ const TagList = (props: TagListProps) => {
       key={tag.id}
       label={tag.name}
       component="a"
-      // href={`/${tag.slug}`}
+      href={`/tag/${tag.slug}`}
       clickable
       color="primary"
-      onClick={() => handleSelectTag(tag.id)}
-      variant={selectedTagId === tag.id ? 'default' : 'outlined'}
+      onClick={() => handleSelectTag(tag.slug)}
+      variant={selectedTagSlug === tag.slug ? 'default' : 'outlined'}
     />
   );
 

@@ -7,6 +7,8 @@ export const LOAD_TAGS = 'LOAD_TAGS';
 export const LOAD_TAGS_SUCCESS = 'LOAD_TAGS_SUCCESS';
 export const LOAD_TAGS_FAIL = 'LOAD_TAGS_FAIL';
 
+export const SET_SELECTED_TAG = 'SET_SELECTED_TAG';
+
 export const loadTags = () => async (dispatch: Dispatch) => {
   dispatch({ type: LOAD_TAGS });
   const { data, error } = await makeRequest({
@@ -22,3 +24,7 @@ export const loadTags = () => async (dispatch: Dispatch) => {
   const { tags } = data;
   dispatch({ type: LOAD_TAGS_SUCCESS, tags });
 };
+
+export const setSelectedTag = (tagSlug: string) => (
+  dispatch: Dispatch,
+) => dispatch({ type: SET_SELECTED_TAG, tagSlug });
