@@ -1,13 +1,13 @@
 import express from 'express';
-import { getQuestionsByTagId } from '../controllers/questions.controller';
+import { getQuestionsByTagSlug } from '../controllers/questions.controller';
 
 import { registerRoute } from '../helpers/routerHelpers';
 
 const router = express.Router();
 
 registerRoute(router, {
-  routePath: '/tag/:tagId',
-  controllerAction: getQuestionsByTagId,
+  routePath: '/tag/slug/:slug',
+  controllerAction: getQuestionsByTagSlug,
   method: 'get',
 });
 

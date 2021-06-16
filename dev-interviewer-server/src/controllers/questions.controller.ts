@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { getAllQuestionsByTagId } from '../services/questions.service';
+import { getAllQuestionsByTagSlug } from '../services/questions.service';
 
-export const getQuestionsByTagId = async (req: Request, res: Response) => {
-  const { tagId } = req.params;
+export const getQuestionsByTagSlug = async (req: Request, res: Response) => {
+  const { slug } = req.params;
 
-  // TODO: Add tadId validation
-  const questions = await getAllQuestionsByTagId(tagId);
-  res.json(questions);
+  // TODO: Add slug validation
+  const questions = await getAllQuestionsByTagSlug(slug);
+  res.json({ questions });
 };

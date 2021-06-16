@@ -1,5 +1,5 @@
-import { QUESTIONS_TABLE_NAME } from '../constants/tableNames';
-import { insertRecord, searchByValue } from '../database/factory';
+import { QUESTIONS_TABLE_NAME, TAGS_TABLE_NAME } from '../constants/tableNames';
+import { executeRawQuery, insertRecord } from '../database/factory';
 import { FactoryOptions, Question } from '../types';
 
 export const insertQuestion = async (
@@ -8,7 +8,13 @@ export const insertQuestion = async (
 ) => insertRecord(QUESTIONS_TABLE_NAME, question, options);
 
 // TODO: Add support for lazy loading and pagination
-export const getAllQuestionsByTagIdDal = async (tagId: string) => searchByValue(
-  QUESTIONS_TABLE_NAME,
-  { searchAttribute: 'tagId', searchValue: tagId },
-);
+export const getAllQuestionsByTagSlugDal = async (slug: string, options?:FactoryOptions) => {
+  const query = `
+    SELECT q.* FROM schema.${TAGS_TABLE_NAME} AS t
+    INNER JOIN schema.${QUESTIONS_TABLE_NAME} AS q ON(q.tagId=t.id)
+    WHERE t.slug = '${slug}'
+  `;
+  const result = await executeRawQuery(query, options);
+
+  return result?.data;
+};
