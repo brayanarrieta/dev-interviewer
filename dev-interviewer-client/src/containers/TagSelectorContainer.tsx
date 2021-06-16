@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& > *': {
       margin: theme.spacing(0.5),
     },
+    marginBlockEnd: theme.spacing(7),
   },
 }));
 
