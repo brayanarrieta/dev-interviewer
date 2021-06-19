@@ -17,3 +17,5 @@ export interface Question {
 export interface FactoryOptions {
     schema?: string
 }
+
+export type VoteType = 'up' | 'down';

@@ -1,8 +1,10 @@
-import {
+import express, {
   NextFunction, Request, Response, Application, Router,
 } from 'express';
 
 type Method = 'get' | 'post' | 'put' | 'patch' | 'delete';
+
+const DEFAULT_MIDDLEWARES = [express.json()];
 
 export const registerRoute = (
   app: Application | Router,
@@ -26,6 +28,8 @@ export const registerRoute = (
     }
   };
 
+  const routeMiddlewares = [...DEFAULT_MIDDLEWARES, ...middlewares];
+
   // @ts-ignore
-  app[method](routePath, ...middlewares, actionWrapper);
+  app[method](routePath, ...routeMiddlewares, actionWrapper);
 };
