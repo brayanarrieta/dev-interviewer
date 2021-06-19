@@ -8,3 +8,8 @@ export enum HTTP_METHODS {
     DELETE = 'delete',
     PATCH = 'patch'
 }
+
+export enum VOTE_TYPE {
+    UP = 'up',
+    DOWN = 'down'
+}

@@ -6,8 +6,10 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
+import { Box } from '@material-ui/core';
 import { Question } from '../types';
 import Message from '../components/Message';
+import VoteContainer from '../containers/VoteContainer';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -31,6 +33,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   detailsPanel: {
     backgroundColor: theme.palette.common.white,
     color: theme.palette.common.black,
+  },
+  accordionDetailsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: theme.spacing(0),
+  },
+  accordionDetailsVoteContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 }));
 
@@ -66,9 +78,16 @@ const QuestionList = (props: QuestionListProps) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails classes={{ root: classes.detailsPanel }}>
-          <Typography align="justify">
-            {answer}
-          </Typography>
+          <Box component="div" m={1} className={classes.accordionDetailsContainer}>
+            <Typography align="justify">
+              {answer}
+            </Typography>
+
+            <Box component="div" m={1} className={classes.accordionDetailsVoteContainer}>
+              <VoteContainer questionId={id} />
+            </Box>
+          </Box>
+
         </AccordionDetails>
       </Accordion>
     );

@@ -19,7 +19,7 @@ export const makeRequest = async (params: MakeRequestParams) => {
   } catch (err) {
     let error = { ...err };
     if (error.response) {
-      const { message, token } = error.response.data.error;
+      const { message, token } = error?.response?.data?.error || {};
       error = {
         message,
         token,

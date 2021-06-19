@@ -7,3 +7,5 @@ export const GET_TAGS_URL = 'tags';
 const GET_QUESTIONS_BY_SLUG_BASE_URL = 'questions/tag/slug';
 
 export const getQuestionsBySlugUrl = (slug: string): string => `${GET_QUESTIONS_BY_SLUG_BASE_URL}/${slug}`;
+
+export const getVoteQuestionUrl = (questionId: string): string => `questions/${questionId}/vote`;

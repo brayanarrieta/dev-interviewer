@@ -18,3 +18,5 @@ export interface ClientError {
     message: string;
     token: string;
 }
+
+export type VoteType = 'up' | 'down';
