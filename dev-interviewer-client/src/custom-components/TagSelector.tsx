@@ -1,7 +1,9 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Tag } from '../types';
+import Message from '../components/Message';
 
 interface TagSelectorProps {
     tags: Tag[];
@@ -14,6 +16,8 @@ const TagSelector = (props: TagSelectorProps) => {
   const {
     tags, selectedTagSlug, onSelectedTag, disableSelector,
   } = props;
+
+  const { t } = useTranslation();
 
   const handleSelectTag = (tagId: string) => onSelectedTag(tagId);
 
@@ -33,7 +37,7 @@ const TagSelector = (props: TagSelectorProps) => {
 
   return (
     <>
-      {tags.map(renderTagChip)}
+      {tags.length ? tags.map(renderTagChip) : <Message message={t('THERE_ARE_NOT_TAGS')} /> }
     </>
   );
 };

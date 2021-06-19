@@ -21,7 +21,7 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
+    <AppBar position="fixed" color="primary" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
           {APPLICATION_NAME}

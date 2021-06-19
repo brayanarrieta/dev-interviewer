@@ -5,7 +5,9 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useTranslation } from 'react-i18next';
 import { Question } from '../types';
+import Message from '../components/Message';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: theme.typography.fontWeightRegular,
   },
   expandedPanel: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.dark,
     color: theme.palette.common.white,
   },
   expandIcon: {
@@ -38,29 +40,33 @@ interface QuestionListProps {
 
 const QuestionList = (props: QuestionListProps) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { questions } = props;
 
-  const renderQuestionItem = (item: Question) => {
+  const renderQuestionItem = (item: Question, index: number) => {
     const {
       question, answer, id, tagId,
     } = item;
+
+    const isFirstQuestion = index === 0;
 
     return (
       <Accordion
         key={`${tagId}-${id}`}
         TransitionProps={{ unmountOnExit: true }}
         classes={{ root: classes.rootPanel }}
+        defaultExpanded={isFirstQuestion}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}
           classes={{ expanded: classes.expandedPanel }}
         >
           <Typography className={classes.heading}>
-            {question}
+            {`${index + 1}. ${question}`}
           </Typography>
         </AccordionSummary>
         <AccordionDetails classes={{ root: classes.detailsPanel }}>
-          <Typography>
+          <Typography align="justify">
             {answer}
           </Typography>
         </AccordionDetails>
@@ -70,7 +76,7 @@ const QuestionList = (props: QuestionListProps) => {
 
   return (
     <div className={classes.root}>
-      {questions.length ? questions.map(renderQuestionItem) : 'Is Empty' }
+      {questions.length ? questions.map(renderQuestionItem) : <Message message={t('THERE_ARE_NOT_QUESTIONS')} />}
     </div>
   );
 };
