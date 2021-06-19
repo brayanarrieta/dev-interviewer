@@ -12,6 +12,7 @@ import { setSelectedTag, loadQuestionsByTagSlug } from '../redux/actions';
 import { ClientError, Question } from '../types';
 import TagSelectorContainer from './TagSelectorContainer';
 import CircularLoaderBlock from '../components/CircularLoaderBlock';
+import ErrorMessage from '../components/ErrorMessage';
 
 interface QuestionsContainerProps {
     selectedTagSlug: string;
@@ -60,7 +61,7 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
     }
 
     if (error) {
-      return t(error.token);
+      return <ErrorMessage message={t(error.token)} />;
     }
 
     return (
@@ -95,7 +96,6 @@ export default connect(
     questions: state.questionsStore.questions,
     error: state.questionsStore.error,
     isLoadingQuestions: state.questionsStore.isLoadingQuestions,
-    // TODO: Integrate selectors pattern
     isLoading: state.questionsStore.isLoadingQuestions && state.tagsStore.isLoadingTags,
   }),
   {

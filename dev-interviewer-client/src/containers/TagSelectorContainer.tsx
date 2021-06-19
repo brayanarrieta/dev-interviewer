@@ -8,6 +8,7 @@ import LoaderBar from '../components/LoaderBar';
 import TagSelector from '../custom-components/TagSelector';
 import { ClientError, Tag } from '../types';
 import { loadTags, setSelectedTag } from '../redux/actions';
+import ErrorMessage from '../components/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -49,7 +50,7 @@ const TagSelectorContainer = (props: TagSelectorContainerProps) => {
     }
 
     if (error) {
-      return t(error.token);
+      return <ErrorMessage message={t(error.token)} />;
     }
 
     return (

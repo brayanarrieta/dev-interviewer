@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-  AppBar, Button, Toolbar, Typography,
+  AppBar, Toolbar, Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { APPLICATION_NAME } from '../../config';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -23,11 +24,8 @@ const Header = () => {
     <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          Dev Interviewer
+          {APPLICATION_NAME}
         </Typography>
-        <Button href="#" color="primary" variant="outlined">
-          Login
-        </Button>
       </Toolbar>
     </AppBar>
   );
