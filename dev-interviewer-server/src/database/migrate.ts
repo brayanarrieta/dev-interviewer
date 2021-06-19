@@ -11,20 +11,35 @@ const createDatabaseStructure = async () => {
   }));
 };
 
-// TODO: Need to be created a database migration system
+// eslint-disable-next-line no-console
+const logSuccessMessage = () => console.log('Migrate script was executed successfully!');
+
 const migrate = async () => {
   try {
-    const args = getCommandLineArgs([{ name: 'drop', type: Boolean }]);
+    const args = getCommandLineArgs([
+      { name: 'recreate', type: Boolean },
+      { name: 'create', type: Boolean },
+      { name: 'drop', type: Boolean },
+    ]);
 
-    if (args?.drop) {
+    if (args?.recreate) {
       await dropSchema();
       await createSchema();
     }
 
+    if (args?.create) {
+      await createSchema();
+    }
+
+    if (args?.drop) {
+      await dropSchema();
+      logSuccessMessage();
+      return;
+    }
+
     await createDatabaseStructure();
 
-    // eslint-disable-next-line no-console
-    console.log('Migrate script was executed successfully!');
+    logSuccessMessage();
   } catch (error) {
   // eslint-disable-next-line no-console
     console.error(error);
