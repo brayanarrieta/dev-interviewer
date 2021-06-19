@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
-import { ClientError, VoteType } from '../types';
+import { ClientError, Question, VoteType } from '../types';
 import { voteQuestionById } from '../redux/actions';
 import Vote from '../custom-components/Vote';
 
@@ -8,23 +8,25 @@ interface VoteContainerProps {
   voteQuestionById: any;
   voteQuestionError: { [key: string]: ClientError};
   isProcessingVoteQuestion: boolean;
-  questionId: string;
+  question: Question;
 }
 
 const VoteContainer = (props: VoteContainerProps) => {
   const {
-    voteQuestionError, isProcessingVoteQuestion, questionId,
+    voteQuestionError, isProcessingVoteQuestion, question,
   } = props;
 
-  const error = voteQuestionError?.[questionId];
+  const error = voteQuestionError?.[question.id];
 
-  const handleOnClick = (voteType: VoteType) => props.voteQuestionById(questionId, voteType);
+  const handleOnClick = (voteType: VoteType) => props.voteQuestionById(question.id, voteType);
 
   return (
     <Vote
       error={error}
       handleOnVoteEvent={handleOnClick}
       isProcessing={isProcessingVoteQuestion}
+      votesUp={question.votesUp}
+      votesDown={question.votesDown}
     />
   );
 };

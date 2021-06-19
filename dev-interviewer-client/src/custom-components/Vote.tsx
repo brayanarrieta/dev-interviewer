@@ -12,18 +12,25 @@ const useStyles = makeStyles((theme) => ({
   voteUpButtonMargin: {
     marginLeft: theme.spacing(1),
   },
+  iconMargin: {
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 interface VoteProps {
     error: ClientError | undefined;
     handleOnVoteEvent: any;
     isProcessing: boolean;
+    votesUp: number;
+    votesDown: number;
 }
 
 const Vote = (props: VoteProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { error, handleOnVoteEvent, isProcessing } = props;
+  const {
+    error, handleOnVoteEvent, isProcessing, votesUp, votesDown,
+  } = props;
   return (
     <>
       {error && <ErrorMessage message={t(error.token)} />}
@@ -34,7 +41,8 @@ const Vote = (props: VoteProps) => {
         onClick={() => handleOnVoteEvent(VOTE_TYPE.UP)}
         className={classes.voteUpButtonMargin}
       >
-        <ThumbUpAltIcon />
+        {votesUp}
+        <ThumbUpAltIcon className={classes.iconMargin} />
       </IconButton>
 
       <IconButton
@@ -43,7 +51,8 @@ const Vote = (props: VoteProps) => {
         disabled={isProcessing}
         onClick={() => handleOnVoteEvent(VOTE_TYPE.DOWN)}
       >
-        <ThumbDownIcon />
+        {votesDown}
+        <ThumbDownIcon className={classes.iconMargin} />
       </IconButton>
     </>
   );

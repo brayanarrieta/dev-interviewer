@@ -38,14 +38,14 @@ const questionsStore = (state = INITIAL_STATE, action: any) => {
     case VOTE_QUESTION_SUCCESS:
     {
       const newQuestionData = action.question;
-      const questions: Question[] = state.questions.reduce((
-        acc, question: Question,
+      const questions: Question[] = state.questions.map((
+        question: Question,
       ) => {
         if (question.id === newQuestionData.id) {
           // eslint-disable-next-line no-param-reassign
-          question = { ...question, ...newQuestionData };
+          question = newQuestionData;
         }
-        return acc;
+        return question;
       });
 
       return {

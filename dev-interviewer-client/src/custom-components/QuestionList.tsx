@@ -84,7 +84,7 @@ const QuestionList = (props: QuestionListProps) => {
             </Typography>
 
             <Box component="div" m={1} className={classes.accordionDetailsVoteContainer}>
-              <VoteContainer questionId={id} />
+              <VoteContainer question={item} />
             </Box>
           </Box>
 
