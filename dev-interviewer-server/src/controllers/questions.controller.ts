@@ -22,7 +22,7 @@ export const voteQuestionById = async (req: Request, res: Response) => {
 
   if (!questionId || !voteType) {
     throw new ServiceError({
-      token: 'VOTE_QUESTION_ERROR',
+      token: 'MISSING_REQUIRED_PARAMS',
     });
   }
 
