@@ -13,6 +13,7 @@ import { ClientError, Question } from '../types';
 import TagSelectorContainer from './TagSelectorContainer';
 import CircularLoaderBlock from '../components/CircularLoaderBlock';
 import ErrorMessage from '../components/ErrorMessage';
+import { getIsDualError, getIsLoading, getQuestionsOrderByVotes } from '../redux/selectors';
 
 interface QuestionsContainerProps {
     selectedTagSlug: string;
@@ -22,6 +23,7 @@ interface QuestionsContainerProps {
     error: ClientError;
     isLoadingQuestions: boolean;
     isLoading: boolean;
+    isDualError: boolean;
 }
 
 interface QuestionsContainerParams {
@@ -39,7 +41,7 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
   const { t } = useTranslation();
 
   const {
-    selectedTagSlug, questions, error, isLoadingQuestions, isLoading,
+    selectedTagSlug, questions, error, isLoadingQuestions,
   } = props;
   const classes = useStyles();
 
@@ -69,17 +71,25 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
     );
   };
 
-  const render = () => (
-    isLoading
-      ? (<CircularLoaderBlock />)
-      : (
-        <>
-          <TagSelectorContainer />
-          <Box className={classes.root}>
-            {renderQuestionsContent()}
-          </Box>
-        </>
-      ));
+  const render = () => {
+    const {
+      isDualError,
+      isLoading,
+    } = props;
+
+    if (isLoading) return <CircularLoaderBlock />;
+
+    if (isDualError) return <ErrorMessage message={t('SOMETHING_WENT_WRONG')} />;
+
+    return (
+      <>
+        <TagSelectorContainer />
+        <Box className={classes.root}>
+          {renderQuestionsContent()}
+        </Box>
+      </>
+    );
+  };
 
   return (
     <Frame>
@@ -93,10 +103,11 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
 export default connect(
   (state: RootStateOrAny) => ({
     selectedTagSlug: state.tagsStore.selectedTagSlug,
-    questions: state.questionsStore.questions,
+    questions: getQuestionsOrderByVotes(state),
     error: state.questionsStore.error,
     isLoadingQuestions: state.questionsStore.isLoadingQuestions,
-    isLoading: state.questionsStore.isLoadingQuestions && state.tagsStore.isLoadingTags,
+    isLoading: getIsLoading(state),
+    isDualError: getIsDualError(state),
   }),
   {
     setSelectedTag,

@@ -60,21 +60,20 @@ const QuestionList = (props: QuestionListProps) => {
       question, answer, id, tagId,
     } = item;
 
-    const isFirstQuestion = index === 0;
+    const questionNumber = index + 1;
 
     return (
       <Accordion
         key={`${tagId}-${id}`}
         TransitionProps={{ unmountOnExit: true }}
         classes={{ root: classes.rootPanel }}
-        defaultExpanded={isFirstQuestion}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}
           classes={{ expanded: classes.expandedPanel }}
         >
           <Typography className={classes.heading}>
-            {`${index + 1}. ${question}`}
+            {`${questionNumber}. ${question}`}
           </Typography>
         </AccordionSummary>
         <AccordionDetails classes={{ root: classes.detailsPanel }}>
