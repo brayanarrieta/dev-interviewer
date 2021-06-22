@@ -1,5 +1,8 @@
 import { Question } from '../../types';
 import {
+  ADD_A_NEW_QUESTION,
+  ADD_A_NEW_QUESTION_FAIL,
+  ADD_A_NEW_QUESTION_SUCCESS,
   LOAD_QUESTIONS, LOAD_QUESTIONS_FAIL, LOAD_QUESTIONS_SUCCESS,
   VOTE_QUESTION, VOTE_QUESTION_FAIL, VOTE_QUESTION_SUCCESS,
 } from '../actions';
@@ -29,7 +32,6 @@ const questionsStore = (state = INITIAL_STATE, action: any) => {
         error: action.error,
         questions: [],
       };
-
     case VOTE_QUESTION:
       return {
         ...state,
@@ -60,6 +62,23 @@ const questionsStore = (state = INITIAL_STATE, action: any) => {
         ...state,
         isProcessingVoteQuestion: false,
         voteQuestionError: action.voteQuestionError,
+      };
+    case ADD_A_NEW_QUESTION:
+      return {
+        ...state,
+        isAddingQuestion: true,
+      };
+    case ADD_A_NEW_QUESTION_SUCCESS:
+      return {
+        ...state,
+        isAddingQuestion: false,
+        questions: [...state.questions, action.question],
+      };
+    case ADD_A_NEW_QUESTION_FAIL:
+      return {
+        ...state,
+        isAddingQuestion: false,
+        addQuestionError: action.error,
       };
     default:
       return state;

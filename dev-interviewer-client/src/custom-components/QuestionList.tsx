@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   accordionDetailsContainer: {
     display: 'flex',
     flexDirection: 'column',
-    margin: theme.spacing(0),
+    width: '100%',
   },
   accordionDetailsVoteContainer: {
     display: 'flex',
@@ -77,12 +77,12 @@ const QuestionList = (props: QuestionListProps) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails classes={{ root: classes.detailsPanel }}>
-          <Box component="div" m={1} className={classes.accordionDetailsContainer}>
+          <Box component="div" className={classes.accordionDetailsContainer}>
             <Typography align="justify">
               {answer}
             </Typography>
 
-            <Box component="div" m={1} className={classes.accordionDetailsVoteContainer}>
+            <Box component="div" className={classes.accordionDetailsVoteContainer}>
               <VoteContainer question={item} />
             </Box>
           </Box>
