@@ -1,4 +1,4 @@
-import { insertQuestion } from '../dal/questions.repository';
+import { insertQuestionDal } from '../dal/questions.repository';
 import { insertTag } from '../dal/tags.repository';
 import seeds from './seedsData';
 
@@ -11,7 +11,7 @@ const insertSeeds = async () => {
 
       if (questions?.length) {
         await Promise.all(questions.map(
-          async (question) => insertQuestion({
+          async (question) => insertQuestionDal({
             tagId: tagInsertedId,
             ...question,
           }),

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getQuestionsByTagSlug, voteQuestionById } from '../controllers/questions.controller';
+import { addNewQuestion, getQuestionsByTagSlug, voteQuestionById } from '../controllers/questions.controller';
 
 import { registerRoute } from '../helpers/routerHelpers';
 
@@ -15,6 +15,12 @@ registerRoute(router, {
   routePath: '/:questionId/vote',
   controllerAction: voteQuestionById,
   method: 'put',
+});
+
+registerRoute(router, {
+  routePath: '/',
+  controllerAction: addNewQuestion,
+  method: 'post',
 });
 
 export default router;

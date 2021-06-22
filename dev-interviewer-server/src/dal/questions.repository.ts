@@ -2,7 +2,7 @@ import { QUESTIONS_TABLE_NAME, TAGS_TABLE_NAME } from '../constants/tableNames';
 import { executeRawQuery, insertRecord, updateRecord } from '../database/factory';
 import { FactoryOptions, Question } from '../types';
 
-export const insertQuestion = async (
+export const insertQuestionDal = async (
   question: Question,
   options?: FactoryOptions,
 ) => insertRecord(QUESTIONS_TABLE_NAME, question, options);
@@ -29,7 +29,7 @@ export const getQuestionByIdDal = async (questionId: string, options?:FactoryOpt
   return result?.data?.[0];
 };
 
-export const updateQuestion = async (
+export const updateQuestionDal = async (
   question: Question,
   options?:FactoryOptions,
 ) => updateRecord(QUESTIONS_TABLE_NAME, question, options);
