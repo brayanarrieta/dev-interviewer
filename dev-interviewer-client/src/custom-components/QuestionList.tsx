@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    marginTop: theme.spacing(2),
+    flexDirection: 'row',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
 }));
 

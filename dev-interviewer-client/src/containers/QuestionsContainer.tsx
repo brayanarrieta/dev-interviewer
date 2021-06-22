@@ -60,7 +60,7 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
   const [isAddQuestionDialogOpen, setIsAddQuestionDialogOpen] = useState<boolean>(false);
 
   const {
-    selectedTagSlug, questions, error, isLoadingQuestions, addQuestionError,
+    selectedTagSlug, questions, error, isLoadingQuestions, addQuestionError, isAddingQuestion,
   } = props;
   const classes = useStyles();
 
@@ -69,6 +69,9 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
       props.setSelectedTag(slug);
     }
   }, []);
+
+  const handleOpenAddQuestionDialog = () => setIsAddQuestionDialogOpen(true);
+  const handleCloseAddQuestionDialog = () => setIsAddQuestionDialogOpen(false);
 
   useEffect(() => {
     if (selectedTagSlug) {
@@ -86,18 +89,30 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
     }
 
     return (
-      <QuestionList questions={questions} />
+      <>
+        <Box component="div" className={classes.addQuestionContainer}>
+          {addQuestionError && <ErrorMessage message={t(addQuestionError.token)} />}
+          <Button
+            variant="outlined"
+            color="primary"
+            startIcon={<AddIcon />}
+            onClick={handleOpenAddQuestionDialog}
+            disabled={isAddingQuestion}
+            className={classes.buttonMargin}
+          >
+            {isAddingQuestion ? t('ADDING') : t('ADD_NEW_QUESTION')}
+          </Button>
+        </Box>
+        <QuestionList questions={questions} />
+
+      </>
     );
   };
-
-  const handleOpenAddQuestionDialog = () => setIsAddQuestionDialogOpen(true);
-  const handleCloseAddQuestionDialog = () => setIsAddQuestionDialogOpen(false);
 
   const render = () => {
     const {
       isDualError,
       isLoading,
-      isAddingQuestion,
     } = props;
 
     if (isLoading) return <CircularLoaderBlock />;
@@ -112,19 +127,6 @@ const QuestionsContainer = (props: QuestionsContainerProps) => {
           handleAddQuestion={props.addQuestion}
         />
         <TagSelectorContainer />
-        <Box component="div" className={classes.addQuestionContainer}>
-          {addQuestionError && <ErrorMessage message={t(addQuestionError.token)} />}
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={handleOpenAddQuestionDialog}
-            disabled={isAddingQuestion}
-            className={classes.buttonMargin}
-          >
-            {isAddingQuestion ? t('ADDING') : t('ADD_NEW_QUESTION')}
-          </Button>
-        </Box>
         <Box className={classes.root}>
           {renderQuestionsContent()}
         </Box>

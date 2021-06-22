@@ -3,7 +3,8 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ErrorMessage from '../components/ErrorMessage';
 import { ClientError } from '../types';
 import { VOTE_TYPE } from '../constants/enums';
@@ -12,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
   voteUpButtonMargin: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(0),
+      marginRight: theme.spacing(0),
+      marginBottom: theme.spacing(1),
+    },
   },
 }));
 
@@ -29,6 +35,8 @@ const Vote = (props: VoteProps) => {
   const {
     error, handleOnVoteEvent, isProcessing, votesUp, votesDown,
   } = props;
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <>
       {error && <ErrorMessage message={t(error.token)} />}
@@ -41,6 +49,7 @@ const Vote = (props: VoteProps) => {
         disabled={isProcessing}
         onClick={() => handleOnVoteEvent(VOTE_TYPE.UP)}
         className={classes.voteUpButtonMargin}
+        fullWidth={isSmallScreen}
       >
         {votesUp}
       </Button>
@@ -52,6 +61,7 @@ const Vote = (props: VoteProps) => {
         aria-label="vote-down"
         disabled={isProcessing}
         onClick={() => handleOnVoteEvent(VOTE_TYPE.DOWN)}
+        fullWidth={isSmallScreen}
       >
         {votesDown}
       </Button>
