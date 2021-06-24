@@ -28,3 +28,7 @@ dev-interviewer
 ```
 
 Everyone has a markdown guide that can be used to run the project locally.
+
+- [Backend](https://github.com/brayanarrieta/dev-interviewer/tree/main/dev-interviewer-server)
+
+- [Frontend](https://github.com/brayanarrieta/dev-interviewer/tree/main/dev-interviewer-client)
