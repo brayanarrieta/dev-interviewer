@@ -77,13 +77,13 @@ const QuestionList = (props: QuestionListProps) => {
           expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}
           classes={{ expanded: classes.expandedPanel }}
         >
-          <Typography className={classes.heading}>
+          <Typography style={{ wordWrap: 'break-word' }} className={classes.heading}>
             {`${questionNumber}. ${question}`}
           </Typography>
         </AccordionSummary>
         <AccordionDetails classes={{ root: classes.detailsPanel }}>
           <Box component="div" className={classes.accordionDetailsContainer}>
-            <Typography align="justify">
+            <Typography style={{ wordWrap: 'break-word' }} align="justify">
               {answer}
             </Typography>
 
